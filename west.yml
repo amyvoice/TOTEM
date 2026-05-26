@@ -10,3 +10,4 @@ manifest:
   self:
     path: .
     west-commands: config/west-commands.yml
+    

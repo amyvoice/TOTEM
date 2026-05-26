@@ -1,0 +1,5 @@
+/ {
+	chosen {
+		zmk,physical-layout = &custom_layout;
+	};
+};

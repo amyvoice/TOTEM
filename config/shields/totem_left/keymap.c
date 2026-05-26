@@ -2,8 +2,10 @@
  * TOTEM Split Keyboard - ZMK Keymap
  */
 
-#include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
+
+#include <dt-bindings/zmk/matrix.h>
+#include <zmk/keys.h>
+#include <zmk/transform.h>
 
 / {
     combos {

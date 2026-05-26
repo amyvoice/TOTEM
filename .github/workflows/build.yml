@@ -1,0 +1,49 @@
+name: Build ZMK Firmware
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        board:
+          - nice_nano_v2
+    runs-on: ubuntu-latest
+    container: ghcr.io/zmkfirmware/zmk-build-ubuntu:latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Left Shield
+        run: |
+          west build --board ${{ matrix.board }} --shield totem_left \
+            --build-dir build/totem_left
+        shell: bash
+
+      - name: Build Right Shield
+        run: |
+          west build --board ${{ matrix.board }} --shield totem_right \
+            --build-dir build/totem_right
+        shell: bash
+
+      - name: Export uf2 files
+        run: |
+          cp build/totem_left/zephyr/zmk.uf2 totem_left.uf2
+          cp build/totem_right/zephyr/zmk.uf2 totem_right.uf2
+        shell: bash
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZMK-Firmware-${{ matrix.board }}
+          path: |
+            totem_left.uf2
+            totem_right.uf2

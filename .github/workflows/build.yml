@@ -46,13 +46,21 @@ jobs:
           cd app
           west zephyr-export
 
+      - name: Create shield symlink
+        run: |
+          cd app/zmk/app
+          mkdir -p shields
+          ln -sf "$(pwd)/../../../../config/shields/totem_left" shields/totem_left
+          ln -sf "$(pwd)/../../../../config/shields/totem_right" shields/totem_right
+          ls -la shields/
+
       - name: Build left shield
         run: |
           cd app
           west build --board xiao_ble//zmk \
             --shield totem_left \
             -s zmk/app \
-            -- -DCONFIG_ZMK_STUDIO=y -DSHIELDS_ROOT=$(pwd)/config/shields
+            -- -DCONFIG_ZMK_STUDIO=y
 
       - name: Build right shield
         run: |
@@ -60,7 +68,7 @@ jobs:
           west build --board xiao_ble//zmk \
             --shield totem_right \
             -s zmk/app \
-            -- -DCONFIG_ZMK_STUDIO=y -DSHIELDS_ROOT=$(pwd)/config/shields
+            -- -DCONFIG_ZMK_STUDIO=y
 
       - name: Export uf2 files
         run: |

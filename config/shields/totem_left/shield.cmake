@@ -1,0 +1,1 @@
+zephyr_library_include_directors(${CMAKE_CURRENT_SOURCE_DIR})

@@ -41,16 +41,18 @@ jobs:
           west init -l config
           west update
 
+      # ====== 加这一段 ======
+      - name: West Zephyr Export
+        run: |
+          cd app
+          west zephyr-export
+      # ====================
+
       - name: Verify structure
         run: |
-          echo "=== app/ 目录 ==="
           ls -la app/
-          echo "=== zmk 目录 ==="
-          ls -la app/zmk/ 2>/dev/null || echo "zmk 目录不存在"
-          echo "=== zmk/app 目录 ==="
-          ls -la app/zmk/app/ 2>/dev/null || echo "zmk/app 目录不存在"
+          ls -la app/zmk/app/ 2>/dev/null || echo "zmk/app 不存在"
 
-      # ====== 关键：所有 west 命令都必须 cd app 再执行 ======
       - name: Build left shield
         run: |
           cd app

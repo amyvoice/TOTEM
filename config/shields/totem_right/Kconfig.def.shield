@@ -1,0 +1,4 @@
+if SHIELD_TOTEM_RIGHT
+config SHIELD_NAME
+	default "totem_right"
+endif

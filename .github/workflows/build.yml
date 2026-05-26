@@ -38,31 +38,35 @@ jobs:
 
       - name: Create shield symlink
         run: |
-          mkdir -p zmk/app/shields
-          ln -sf "$(pwd)/config/shields/totem_left" zmk/app/shields/totem_left
-          ln -sf "$(pwd)/config/shields/totem_right" zmk/app/shields/totem_right
-          echo "Symlinks created:"
-          ls -la zmk/app/shields/
+          mkdir -p zmk/shields
+          ln -sf "$(pwd)/config/shields/totem_left" zmk/shields/totem_left
+          ln -sf "$(pwd)/config/shields/totem_right" zmk/shields/totem_right
+          echo "Symlinks:"
+          ls -la zmk/shields/
 
       - name: Build left
         run: |
           west build --board xiao_ble//zmk \
             --shield totem_left \
-            -s zmk/app \
+            -s zmk \
             -- -DCONFIG_ZMK_STUDIO=y
 
       - name: Build right
         run: |
           west build --board xiao_ble//zmk \
             --shield totem_right \
-            -s zmk/app \
+            -s zmk \
             -- -DCONFIG_ZMK_STUDIO=y
 
       - name: Export uf2
         run: |
           mkdir -p firmware
-          cp zmk/app/build/zephyr/zmk.uf2 firmware/totem_left.uf2 || true
-          cp zmk/app/build/zephyr/zmk.uf2 firmware/totem_right.uf2 || true
+          cp zmk/build/zephyr/zmk.uf2 firmware/totem_left.uf2 2>/dev/null || \
+            cp build/zephyr/zmk.uf2 firmware/totem_left.uf2 2>/dev/null || \
+            echo "Left build not found"
+          cp zmk/build/zephyr/zmk.uf2 firmware/totem_right.uf2 2>/dev/null || \
+            cp build/zephyr/zmk.uf2 firmware/totem_right.uf2 2>/dev/null || \
+            echo "Right build not found"
 
       - name: Upload
         uses: actions/upload-artifact@v4

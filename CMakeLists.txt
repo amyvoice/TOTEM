@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.20.0)
+find_package(Zephyr REQUIRED HINT $ENV{ZEPHYR_BASE})
+project(totem)
+FILE(GLOB app_shield_dirs LIST_DIRECTORIES true ${CMAKE_CURRENT_SOURCE_DIR}/config/shields/*)
+list(SORT app_shield_dirs)
+foreach(shield_dir ${app_shield_dirs})
+    if(is_directory ${shield_dir})
+        get_filename_component(shield ${shield_dir} NAME)
+        add_custom_target(shield.${shield} ALL
+            COMMAND ${CMAKE_COMMAND} -E touch ${shield_dir}/Kconfig.shield)
+    endif()
+endforeach()
+target_include_directories(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/config)

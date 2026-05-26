@@ -46,13 +46,13 @@ jobs:
           cd app
           west zephyr-export
 
-            - name: Build left shield
+      - name: Build left shield
         run: |
           cd app
           west build --board xiao_ble//zmk \
             --shield totem_left \
             -s zmk/app \
-            -- -DCONFIG_ZMK_STUDIO=y -DSHIELDS_ROOT=/home/runner/work/TOTEM/TOTEM/app/config/shields
+            -- -DCONFIG_ZMK_STUDIO=y -DSHIELDS_ROOT=$(pwd)/config/shields
 
       - name: Build right shield
         run: |
@@ -60,7 +60,7 @@ jobs:
           west build --board xiao_ble//zmk \
             --shield totem_right \
             -s zmk/app \
-            -- -DCONFIG_ZMK_STUDIO=y -DSHIELDS_ROOT=/home/runner/work/TOTEM/TOTEM/app/config/shields
+            -- -DCONFIG_ZMK_STUDIO=y -DSHIELDS_ROOT=$(pwd)/config/shields
 
       - name: Export uf2 files
         run: |

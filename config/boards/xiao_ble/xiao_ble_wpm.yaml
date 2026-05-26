@@ -5,4 +5,3 @@ default_chain:
   - board: xiao_ble
   - shield: totem_left
   - shield: totem_right
-  

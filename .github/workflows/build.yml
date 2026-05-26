@@ -16,7 +16,7 @@ jobs:
         board:
           - nice_nano_v2
     runs-on: ubuntu-latest
-    container: ghcr.io/zmkfirmware/zmk-build-ubuntu:latest
+    container: zmkfirmware/zmk-build:latest
 
     steps:
       - name: Checkout

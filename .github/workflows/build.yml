@@ -33,25 +33,27 @@ jobs:
             gcc-multilib \
             libnewlib-arm-none-eabi \
             ccache \
-            device-tree-compiler \
+            device-tree-compiler
 
       - name: West Init & Update
         run: |
           cd app
           west init -l config
           west update
-          
+
       - name: Build left shield
         run: |
           cd app && west build --board seeeduino_xiao_ble \
             --shield totem_left \
-            --build-dir build/totem_left
-            
+            --build-dir build/totem_left \
+            -s zmk
+
       - name: Build Right Shield
         run: |
           cd app && west build --board seeeduino_xiao_ble \
             --shield totem_right \
-            --build-dir build/totem_right
+            --build-dir build/totem_right \
+            -s zmk
 
       - name: Export uf2 files
         run: |

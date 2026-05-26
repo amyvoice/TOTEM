@@ -41,18 +41,30 @@ jobs:
           west init -l config
           west update
 
+      # ====== 加这一段 ======
+      - name: Verify structure
+        run: |
+          echo "=== app/ 目录 ==="
+          ls -la app/
+          echo "=== zmk 目录 ==="
+          ls -la app/zmk/ 2>/dev/null || echo "zmk 目录不存在"
+          echo "=== zmk/app 目录 ==="
+          ls -la app/zmk/app/ 2>/dev/null || echo "zmk/app 目录不存在"
+      # ====================
+
       - name: Build left shield
         run: |
-          cd app && west build --board seeeduino_xiao_ble \
+          west build --board seeeduino_xiao_ble \
             --shield totem_left \
-            --build-dir build/totem_left \
-            -s ../zmk/app
+            --build-dir app/build/totem_left \
+            app/zmk/app
+
       - name: Build right shield
         run: |
-          cd app && west build --board seeeduino_xiao_ble \
+          west build --board seeeduino_xiao_ble \
             --shield totem_right \
-            --build-dir build/totem_right \
-            -s ../zmk/app
+            --build-dir app/build/totem_right \
+            app/zmk/app
 
       - name: Export uf2 files
         run: |

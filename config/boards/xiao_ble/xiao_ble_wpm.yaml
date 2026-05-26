@@ -1,3 +1,7 @@
-cd app
-west build -b xiao_ble_wpm --shield totem_left app/zmk/app
-west build -b xiao_ble_wpm --shield totem_right app/zmk/app
+shields:
+  - totem_left
+  - totem_right
+default_chain:
+  - board: xiao_ble
+  - shield: totem_left
+  - shield: totem_right

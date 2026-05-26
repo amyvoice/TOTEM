@@ -1,1 +1,3 @@
-
+config SHIELD_TOTEM_LEFT
+	bool "TOTEM Left"
+	default y

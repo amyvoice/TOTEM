@@ -1,4 +1,2 @@
 if SHIELD_TOTEM_LEFT
-config SHIELD_NAME
-	default "totem_left"
 endif

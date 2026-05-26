@@ -4,28 +4,20 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
-    strategy:
-      fail-fast: false
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: app
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Install dependencies
+      - name: Install tools
         run: |
           pip3 install west
           sudo apt-get update
@@ -37,48 +29,43 @@ jobs:
 
       - name: West Init & Update
         run: |
-          cd app
-          west init -l config
+          west init -l .
           west update
 
       - name: West Zephyr Export
         run: |
-          cd app
           west zephyr-export
 
       - name: Create shield symlink
         run: |
-          cd app/zmk/app
-          mkdir -p shields
-          ln -sf "$(pwd)/../../../../config/shields/totem_left" shields/totem_left
-          ln -sf "$(pwd)/../../../../config/shields/totem_right" shields/totem_right
-          ls -la shields/
+          mkdir -p zmk/app/shields
+          ln -sf "$(pwd)/config/shields/totem_left" zmk/app/shields/totem_left
+          ln -sf "$(pwd)/config/shields/totem_right" zmk/app/shields/totem_right
+          echo "Symlinks created:"
+          ls -la zmk/app/shields/
 
-      - name: Build left shield
+      - name: Build left
         run: |
-          cd app
           west build --board xiao_ble//zmk \
             --shield totem_left \
             -s zmk/app \
             -- -DCONFIG_ZMK_STUDIO=y
 
-      - name: Build right shield
+      - name: Build right
         run: |
-          cd app
           west build --board xiao_ble//zmk \
             --shield totem_right \
             -s zmk/app \
             -- -DCONFIG_ZMK_STUDIO=y
 
-      - name: Export uf2 files
+      - name: Export uf2
         run: |
           mkdir -p firmware
-          cp app/build/totem_left/zephyr/zmk.uf2 firmware/totem_left.uf2
-          cp app/build/totem_right/zephyr/zmk.uf2 firmware/totem_right.uf2
+          cp zmk/app/build/zephyr/zmk.uf2 firmware/totem_left.uf2 || true
+          cp zmk/app/build/zephyr/zmk.uf2 firmware/totem_right.uf2 || true
 
-      - name: Upload Artifacts
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: ZMK-Firmware
-          path: |
-            firmware/*.uf2
+          path: firmware/*.uf2

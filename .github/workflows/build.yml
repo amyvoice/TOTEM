@@ -50,17 +50,16 @@ jobs:
         run: |
           cd app
           west build --board xiao_ble//zmk \
-          -- -DCONFIG_ZMK_STUDIO=y \
             --shield totem_left \
-            -s zmk/app
-
+            -s zmk/app \
+            -- -DCONFIG_ZMK_STUDIO=y
       - name: Build right shield
         run: |
           cd app
           west build --board xiao_ble//zmk \
-          -- -DCONFIG_ZMK_STUDIO=y \
             --shield totem_right \
-            -s zmk/app
+            -s zmk/app \
+            -- -DCONFIG_ZMK_STUDIO=y
 
       - name: Export uf2 files
         run: |

@@ -18,6 +18,11 @@
             bindings = <&kp NUMBER_2>;
             key-positions = <1 11>;
         };
+
+        Number3 {
+            bindings = <&kp NUMBER_3>;
+            key-positions = <2 12>;
+        };
     };
 
     keymap {

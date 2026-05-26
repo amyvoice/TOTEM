@@ -1,0 +1,63 @@
+# =============================================
+# TOTEM Split Keyboard 键位配置
+# =============================================
+# 定义每个按键对应的功能
+# =============================================
+
+/*
+ * TOTEM Split Keyboard - ZMK Keymap
+ * Nice!Nano v2 / Pro Micro 5V
+ * 5行 x 6列 x 2半边 = 60键
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/modifiers.h>
+#include <dt-bindings/zmk/matrix.h>
+
+/ {
+    compatible = "zmk,keymap";
+
+    default_layer {
+        bindings = <
+&kp ESC   &kp Q    &kp W    &kp E    &kp R    &kp T    &kp Y    &kp U    &kp I    &kp O    &kp P    &kp LBKT
+&kp TAB   &kp A    &kp S    &kp D    &kp F    &kp G    &kp H    &kp J    &kp K    &kp L    &kp SCLN &kp QUOT
+&kp LSHFT &kp Z    &kp X    &kp C    &kp V    &kp B    &kp N    &kp M    &kp COMM &kp DOT  &kp SLSH &kp RSFT
+&kp LCTRL &kp LALT &kp LGUI &mt SFT SPACE     &mo 2    &mo 3    &mo 2    &kp LEFT &kp DOWN &kp UP   &kp RIGHT
+&kp GRAVE &kp MINS &kp EQL  &kp LBRC &kp RBRC &kp BSLH &kp INT1  &kp N1   &kp N2   &kp N3   &kp N4   &kp N5
+        >;
+    };
+
+    // 第2层：数字行
+    layer_numbers {
+        bindings = <
+&trans  &kp N1   &kp N2   &kp N3   &kp N4   &kp N5   &kp N6   &kp N7   &kp N8   &kp N9   &kp N0   &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+        >;
+    };
+
+    // 第3层：符号层
+    layer_symbols {
+        bindings = <
+&trans  &kp EXLM &kp AT   &kp HASH &kp DLR  &kp PERC &kp CIRC &kp AMPR &kp ASTR &kp LPAR &kp RPAR &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+        >;
+    };
+
+    // 第4层：功能键
+    layer_functions {
+        bindings = <
+&trans  &kp F1   &kp F2   &kp F3   &kp F4   &kp F5   &kp F6   &kp F7   &kp F8   &kp F9   &kp F10  &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+&trans  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
+        >;
+    };
+};

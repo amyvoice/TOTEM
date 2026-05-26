@@ -34,8 +34,6 @@ jobs:
             libnewlib-arm-none-eabi \
             ccache \
             device-tree-compiler \
-            gnuefi \
-            binutils-arm-none-eabi
 
       - name: West Init & Update
         run: |

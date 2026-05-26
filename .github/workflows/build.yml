@@ -45,15 +45,13 @@ jobs:
         run: |
           cd app && west build --board seeeduino_xiao_ble \
             --shield totem_left \
-            --build-dir build/totem_left \
-            -d config
+            --build-dir build/totem_left
             
       - name: Build Right Shield
         run: |
           cd app && west build --board seeeduino_xiao_ble \
             --shield totem_right \
-            --build-dir build/totem_right \
-            -d config
+            --build-dir build/totem_right
 
       - name: Export uf2 files
         run: |

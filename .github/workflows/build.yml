@@ -41,17 +41,20 @@ jobs:
           west init -l config
           west update
 
-      # ====== 加这一段 ======
       - name: West Zephyr Export
         run: |
           cd app
           west zephyr-export
-      # ====================
 
-      - name: Verify structure
+      # ====== 调试：列出所有可用板子 ======
+      - name: List available boards
         run: |
-          ls -la app/
-          ls -la app/zmk/app/ 2>/dev/null || echo "zmk/app 不存在"
+          cd app
+          west boards 2>/dev/null || \
+          find zephyr/boards/ -name "*.yaml" -o -name "*.yml" | head -50
+          find zephyr/ -path "*/boards/*xiao*" 2>/dev/null
+          find zephyr/ -path "*/boards/*seeed*" 2>/dev/null
+      # ====================================
 
       - name: Build left shield
         run: |

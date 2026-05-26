@@ -1,0 +1,55 @@
+# =============================================
+# TOTEM Split Keyboard 板级配置
+# =============================================
+# 这里定义左/右半边键盘的硬件引脚和矩阵
+# =============================================
+
+# ---------- 左侧键盘配置 ----------
+&b1 {
+    compatible = "zmk,kscan-gpio-single";
+    input-gpios = <&pro_micro_d 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+};
+
+# 左侧 - 5行6列矩阵
+totem_left: &kscan {
+    compatible = "zmk,kscan-gpio-matrix";
+    rows = <5>;
+    cols = <6>;
+    row-gpios = <
+        &pro_micro_d 4 GPIO_ACTIVE_LOW
+        &pro_micro_d 5 GPIO_ACTIVE_LOW
+        &pro_micro_d 6 GPIO_ACTIVE_LOW
+        &pro_micro_d 7 GPIO_ACTIVE_LOW
+        &pro_micro_d 8 GPIO_ACTIVE_LOW
+    >;
+    col-gpios = <
+        &pro_micro_d 9  GPIO_ACTIVE_LOW
+        &pro_micro_d 10 GPIO_ACTIVE_LOW
+        &pro_micro_d 14 GPIO_ACTIVE_LOW
+        &pro_micro_d 15 GPIO_ACTIVE_LOW
+        &pro_micro_d 16 GPIO_ACTIVE_LOW
+        &pro_micro_d 18 GPIO_ACTIVE_LOW
+    >;
+};
+
+# ---------- 右侧键盘配置 ----------
+totem_right: &kscan {
+    compatible = "zmk,kscan-gpio-matrix";
+    rows = <5>;
+    cols = <6>;
+    row-gpios = <
+        &pro_micro_d 4 GPIO_ACTIVE_LOW
+        &pro_micro_d 5 GPIO_ACTIVE_LOW
+        &pro_micro_d 6 GPIO_ACTIVE_LOW
+        &pro_micro_d 7 GPIO_ACTIVE_LOW
+        &pro_micro_d 8 GPIO_ACTIVE_LOW
+    >;
+    col-gpios = <
+        &pro_micro_d 9  GPIO_ACTIVE_LOW
+        &pro_micro_d 10 GPIO_ACTIVE_LOW
+        &pro_micro_d 14 GPIO_ACTIVE_LOW
+        &pro_micro_d 15 GPIO_ACTIVE_LOW
+        &pro_micro_d 16 GPIO_ACTIVE_LOW
+        &pro_micro_d 18 GPIO_ACTIVE_LOW
+    >;
+};

@@ -41,7 +41,6 @@ jobs:
           west init -l config
           west update
 
-      # ====== 加这一段 ======
       - name: Verify structure
         run: |
           echo "=== app/ 目录 ==="
@@ -50,21 +49,21 @@ jobs:
           ls -la app/zmk/ 2>/dev/null || echo "zmk 目录不存在"
           echo "=== zmk/app 目录 ==="
           ls -la app/zmk/app/ 2>/dev/null || echo "zmk/app 目录不存在"
-      # ====================
 
+      # ====== 关键：所有 west 命令都必须 cd app 再执行 ======
       - name: Build left shield
         run: |
+          cd app
           west build --board seeeduino_xiao_ble \
             --shield totem_left \
-            --build-dir app/build/totem_left \
-            app/zmk/app
+            -s zmk/app
 
       - name: Build right shield
         run: |
+          cd app
           west build --board seeeduino_xiao_ble \
             --shield totem_right \
-            --build-dir app/build/totem_right \
-            app/zmk/app
+            -s zmk/app
 
       - name: Export uf2 files
         run: |

@@ -46,39 +46,29 @@ jobs:
           cd app
           west zephyr-export
 
-      # ====== 调试：列出所有可用板子 ======
-      - name: List available boards
-        run: |
-          cd app
-          west boards 2>/dev/null || \
-          find zephyr/boards/ -name "*.yaml" -o -name "*.yml" | head -50
-          find zephyr/ -path "*/boards/*xiao*" 2>/dev/null
-          find zephyr/ -path "*/boards/*seeed*" 2>/dev/null
-      # ====================================
-
       - name: Build left shield
         run: |
           cd app
-          west build --board seeeduino_xiao_ble \
+          west build --board xiao_ble \
             --shield totem_left \
             -s zmk/app
 
       - name: Build right shield
         run: |
           cd app
-          west build --board seeeduino_xiao_ble \
+          west build --board xiao_ble \
             --shield totem_right \
             -s zmk/app
 
       - name: Export uf2 files
         run: |
-          cp app/build/totem_left/zephyr/zmk.uf2 totem_left.uf2
-          cp app/build/totem_right/zephyr/zmk.uf2 totem_right.uf2
+          mkdir -p firmware
+          cp app/build/totem_left/zephyr/zmk.uf2 firmware/totem_left.uf2
+          cp app/build/totem_right/zephyr/zmk.uf2 firmware/totem_right.uf2
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ZMK-Firmware
           path: |
-            totem_left.uf2
-            totem_right.uf2
+            firmware/*.uf2

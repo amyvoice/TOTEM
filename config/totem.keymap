@@ -1,5 +1,5 @@
 /*
- * TOTEM Split Keyboard - ZMK Keymap
+ * TOTEM Split Keyboard - ZMK Keymap Initial
  */
 
 #include <behaviors.dtsi>
